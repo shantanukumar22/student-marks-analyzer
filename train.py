@@ -1,20 +1,48 @@
-import json
-from utils.dataset_loader import load_dataset
+def get_marks():
+    marks = []
+    n = int(input("Enter number of students: "))
 
-def train():
-    # TODO: Load your dataset
-    X_train, X_test, y_train, y_test = load_dataset()
+    for i in range(n):
+        while True:
+            try:
+                mark = float(input(f"Enter marks for student {i + 1}: "))
+                if mark < 0:
+                    print("Marks cannot be negative. Try again.")
+                    continue
+                marks.append(mark)
+                break
+            except ValueError:
+                print("Invalid input. Please enter a number.")
 
-    # TODO: Create and train your model
-    # model = ...
-    # model.fit(X_train, y_train)
+    return marks
 
-    # TODO: Evaluate your model properly
-    accuracy = 0.0  # Replace with your actual accuracy
 
-    # Save metrics for validator
-    with open("metrics.json", "w") as f:
-        json.dump({"accuracy": accuracy}, f)
+def calculate_average(marks):
+    return sum(marks) / len(marks)
+
+
+def find_highest(marks):
+    return max(marks)
+
+
+def find_lowest(marks):
+    return min(marks)
+
+
+def main():
+    print("=== Student Marks Analyzer ===")
+
+    marks = get_marks()
+
+    average = calculate_average(marks)
+    highest = find_highest(marks)
+    lowest = find_lowest(marks)
+
+    print("\nResults:")
+    print(f"Average Marks : {average:.2f}")
+    print(f"Highest Marks : {highest}")
+    print(f"Lowest Marks  : {lowest}")
+
 
 if __name__ == "__main__":
-    train()
+    main()
